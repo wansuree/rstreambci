@@ -1,0 +1,25 @@
+SelectedTarget 0
+
+
+SelectedRow 0
+
+
+SelectedColumn 0
+
+
+SpellerMenu 1
+
+
+StimulusTime 59364
+
+
+Signal(0,0) -2.56283
+
+
+Signal(1,0) 2.90547
+
+
+Running 0
+
+
+Recording 1
