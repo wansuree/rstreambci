@@ -30,19 +30,19 @@ isrec = array('c') # char (binary)
 
 # dictionary for label parsing
 def ltime():
-	stimtime.append(parsedata[1])
+	stimtime.append(int(parsedata[1]))
 	
 def lsig(): # TODO doesn't work yet, we need a more clever test in the dict
-	sigvolt.append(parsedata[1])
+	sigvolt.append(float(parsedata[1]))
 
 def ltarg():
 	target.append(parsedata[1])
 	
 def lrow():
-	rowsel.append(parsedata[1])
+	rowsel.append(int(parsedata[1]))
 	
 def lcol():
-	colsel.append(parsedata[1])
+	colsel.append(int(parsedata[1]))
 	
 def lrun():
 	isrun.append(parsedata[1])
@@ -50,18 +50,21 @@ def lrun():
 def lrec():
 	isrec.append(parsedata[1])
 
+def default(): # catch default case
+   pass
+
 parsing = {"StimulusTime" : ltime,
-		  "Signal" : lsig,
-		  "SelectedTarget" : ltarg,
-		  "SelectedRow" : lrow,
-		  "SelectedColumn" : lcol,
-		  "Running" : lrun,
-		  "Recording" : lrec,
+           "Signal" : lsig,
+           "SelectedTarget" : ltarg,
+           "SelectedRow" : lrow,
+           "SelectedColumn" : lcol,
+           "Running" : lrun,
+           "Recording" : lrec,
 }
 
 
 while True:
-	data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
+        data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
     
 	print data
 	# split the data into label and value
@@ -69,4 +72,5 @@ while True:
 
 	# actually parse
 	# TODO needs error handling
-	parsing[parsedata[0]]()
+        if (len(parsedata) > 0):
+                parsing.get(parsedata[0],default)()
