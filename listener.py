@@ -62,15 +62,21 @@ parsing = {"StimulusTime" : ltime,
            "Recording" : lrec,
 }
 
+try:
+	while True:
+			data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
+		
+			print data
+			# write to file for later testing
+			file = open("testp300dummy.txt", "a")
+			file.write(data)
+			
+			# split the data into label and value
+			parsedata = data.split()
 
-while True:
-        data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-    
-	print data
-	# split the data into label and value
-	parsedata = data.split()
-
-	# actually parse
-	# TODO needs error handling
-        if (len(parsedata) > 0):
-                parsing.get(parsedata[0],default)()
+			# actually parse
+			# TODO needs error handling
+			if (len(parsedata) > 0):
+				parsing.get(parsedata[0],default)()
+except KeyboardInterrupt:
+	file.close
