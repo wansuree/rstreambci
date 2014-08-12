@@ -1,6 +1,9 @@
 import socket
 import sys
 
+# Sends udp test data piped in from STDIN to the listener.
+# ex: cat sampleoutput.txt | python testsender.py 
+
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5000
 MESSAGE = "Hello, World!"
