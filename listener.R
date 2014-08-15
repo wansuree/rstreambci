@@ -10,52 +10,20 @@ python.exec("sock = socket.socket(socket.AF_INET,  # Internet
                      socket.SOCK_DGRAM)  # UDP")
 python.exec("sock.bind((UDP_IP, UDP_PORT))")
 
-python.exec("stimtime = array('I')  # unsigned int
-srctime = array('I')
-sigvolt = array('d')  # double
-target = array('c')  # char (should be binary, basically)
-rowsel = array('I')  # unsigned int
-colsel = array('I')  # unsigned int
-isrun = array('c')  # char (binary)
-isrec = array('c')  # char (binary)")
 
-python.exec("# dictionary for label parsing
-def lstimtime():
-    stimtime.append(int(parsedata[1]))
-    
-def lsrctime():
-    srctime.append(int(parsedata[1]))
-
-def lsig(): # TODO doesn't work yet, we need a more clever test in the dict
-    sigvolt.append(float(parsedata[1]))
-
-def ltarg():
-    target.append(parsedata[1])
-
-def lrow():
-    rowsel.append(int(parsedata[1]))
-
-def lcol():
-    colsel.append(int(parsedata[1]))
-
-def lrun():
-    isrun.append(parsedata[1])
-
-def lrec():
-    isrec.append(parsedata[1])
-
-def default(): # catch default case
-    pass")
-
-python.exec("parsing = {'StimulusTime': lstimtime,
-           'SourceTime': lsrctime,
-           'Signal': lsig,
-           'SelectedTarget': ltarg,
-           'SelectedRow': lrow,
-           'SelectedColumn': lcol,
-           'Running': lrun,
-           'Recording': lrec,
-          }")
+# Data structures for holding columns
+# (this is provisional, probably needs refactoring down the road)
+stimtime <- array()
+srctime <- array()
+sig <- array()
+seltgt <- array()
+seltgt <- factor(seltgt, levels = c(0,1))
+selrow <- array()
+selcol <- array()
+is.run <- array()
+is.run <- factor(is.run, levels = c(0,1))
+is.rec <- array()
+is.rec <- factor(is.rec, levels = c(0,1))
 
 repeat {
   python.exec("data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes")
@@ -65,6 +33,31 @@ repeat {
   print(r.data)
   
   if (r.data == "END") {
-      break
+      break # This is never reached. TODO investigate/fix
   }
+  
+  input <- strsplit(r.data, " ")[[1]] # split by spaces
+  
+  switch(input[1],
+         StimulusTime = {
+           stimtime <- append(stimtime, as.integer(input[2]))
+         },
+         SourceTime = {
+           srctime <- append(srctime, as.integer(input[2]))
+         },
+         SelectedTarget = {
+           seltgt <- append(seltgt, as.integer(input[2]))
+         },
+         SelectedRow = {
+           selrow <- append(selrow, as.integer(input[2]))
+         },
+         SelectedColumn = {
+           selcol <- append(selcol, as.integer(input[2]))
+         },
+         Running = {
+           is.run <- append(is.run, as.integer(input[2]))
+         },
+         Recording = {
+           is.rec <- append(is.rec, as.integer(input[2]))
+         })
 }
