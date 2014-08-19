@@ -16,11 +16,23 @@ sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 
 # Send from stdin
-while True:
-  line = sys.stdin.readline()
-  if line:
-    sock.sendto(line, (UDP_IP, UDP_PORT))
-  else:
-    break
+if len(sys.argv) < 2:
+  while True:
+    line = sys.stdin.readline()
+    if line:
+      sock.sendto(line, (UDP_IP, UDP_PORT))
+    else:
+      break
+
+  # get from file arg
+else:
+  myfile = open(str(sys.argv[1]), "r")
+  while True:
+    line = myfile.readline()
+    if line:
+      sock.sendto(line, (UDP_IP, UDP_PORT))
+    else:
+      break
+
 
 sock.close()
