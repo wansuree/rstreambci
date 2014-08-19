@@ -68,13 +68,13 @@ parsing = {"StimulusTime": lstimtime,
 
 try:
     while True:
-        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data, addr = sock.recvfrom(1024)  # buffer size
 
         print data
         # write to file for later testing
         # file = open("testp300dummy.txt", "a")
         # file.write(data)
-        if data == "EOF":
+        if data == "END\n":
             break
 
         # split the data into label and value

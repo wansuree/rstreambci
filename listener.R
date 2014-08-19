@@ -26,13 +26,13 @@ is.rec <- array()
 is.rec <- factor(is.rec, levels = c(0,1))
 
 repeat {
-  python.exec("data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes")
+  python.exec("data, addr = sock.recvfrom(65535)  # buffer size as arg")
   
   r.data <- python.get("data")
   
   print(r.data)
   
-  if (r.data == "END") {
+  if (r.data == "END\n") {
       break # This is never reached. TODO investigate/fix
   }
   
@@ -61,3 +61,5 @@ repeat {
            is.rec <- append(is.rec, as.integer(input[2]))
          })
 }
+
+python.exec("sock.close()")
