@@ -1,0 +1,9 @@
+Package: rstreambci
+Type: Package
+Title: Addon to stream package providing data from BCI2000
+Version: 1.0
+Date: 2014-09-13
+Author: Trevor Alexander
+Maintainer: Trevor Alexander <talex@privatdemail.net>
+Description: More about what it does (maybe more than one line)
+License: GPLv3
