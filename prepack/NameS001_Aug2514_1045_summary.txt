@@ -1,0 +1,23 @@
+NameS001_Aug2514_1045_summary.txt
+Mon Aug 25 10:46:08 2014
+
+System ID = 	Amp ID = 	Montage ID = 
+
+SW Versions:
+Operator:
+	4229, 2012/07/03 18:02:30
+Signal Processing:
+	4229, 2012/07/03 18:02:30
+Application:
+	4229, 2012/07/03 18:02:30
+
+---------------------------------------------------
+*** START OF RUN 1 IN OFFLINE MODE ***
+Date = Aug/25/14		Time = 10:46
+Num of Sequences = 15
+MATRIX SIZE(s)
+6 x 6
+*** RUN SUMMARY ***
+System Pause Duration (in seconds): 0
+Number of Selections = 0
+

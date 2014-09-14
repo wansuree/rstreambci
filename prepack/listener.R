@@ -1,4 +1,5 @@
 library(rPython)
+library(stringi)
 
 python.exec("import socket")
 python.exec("from array import array")
@@ -33,11 +34,16 @@ repeat {
   print(r.data)
   
   if (r.data == "END\n") {
-      break # This is never reached. TODO investigate/fix
+      break # This is not reached in test files around 500+ lines,
+            # possibly due to packet loss. TODO workaround/bugfix if possible
   }
   
   input <- strsplit(r.data, " ")[[1]] # split by spaces
   
+  # more intricate matches for Signal(x,y)
+  if 
+  
+  # simple matches
   switch(input[1],
          StimulusTime = {
            stimtime <- append(stimtime, as.integer(input[2]))
